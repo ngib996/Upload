@@ -1,0 +1,11 @@
+services:
+#    jcv_advert.doctrine.notification:
+#        class: JCV\UserBundle\DoctrineListener\ApplicationNotification
+#        arguments: [@mailer]
+#        tags:
+#            - { name: doctrine.event_listener, event: postPersist }
+
+    form.type.datePicker:
+        class: JCV\UserBundle\Form\Type\DatePickerType
+        tags:
+            - { name: form.type, alias: datePicker }

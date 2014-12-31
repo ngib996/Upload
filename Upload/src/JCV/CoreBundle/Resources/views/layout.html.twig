@@ -1,0 +1,23 @@
+{# src/JCV/CoreBundle/Resources/views/layout.html.twig #}
+
+{% extends "JCVCoreBundle::base.html.twig" %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block body %}
+
+    {{ include("JCVCoreBundle::menu.html.twig") }}
+
+    {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+    {% block jcvcore_body %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block javascripts %}
+   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js"></script>-->
+{% endblock %}

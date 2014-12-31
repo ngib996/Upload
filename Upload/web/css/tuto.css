@@ -1,0 +1,64 @@
+body {
+    padding-top: 50px;
+    font-size: 12px;
+}
+
+table td {
+    font-size: 12px;
+}
+.jumbotron {
+    margin-bottom: 0px;
+    background-image: url(../img/family.jpg);
+    background-position: 50% 45%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    text-shadow: black 0.3em 0.3em 0.3em;
+}
+
+.flash-notice {
+    padding:0.8em;margin-bottom:1em;border:2px solid #ddd;
+    background:#e6efc2;color:#264409;border-color:#c6d880;
+}
+.pagination_desc
+{
+    margin-left: 15px;
+    margin-top: 10px;
+    font-style: italic;
+    color: #828f95;
+}
+
+.pagination_desc strong
+{
+    color: #176f94;
+}
+
+.pagination
+{
+    margin-top: 10px;
+    float: right;
+    margin-right: 10px;
+    color: #176f94;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.pagination a
+{
+    margin: 0 1px;
+    text-decoration: none;
+    color: #828f95;
+    font-size: 85%;
+    vertical-align: 1px;
+    font-weight: normal;
+}
+
+.pagination a:hover
+{
+    text-decoration: underline;
+}
+
+.pagination img
+{
+    vertical-align: -2px;
+}

@@ -1,0 +1,21 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/edit.html.twig #}
+
+{% extends "JCVUploadBundle::layout.html.twig" %}
+
+{% block jcvupload_body -%}
+    <h1>Upload edit</h1>
+
+    {{ form(edit_form) }}
+
+    <a href="{{ path('upload') }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Back to the list
+    </a>
+    <a href="{{ path('upload_delete', {'id': entity.id}) }}" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        Supprimer l'upload
+    </a>
+
+
+{% endblock %}
+

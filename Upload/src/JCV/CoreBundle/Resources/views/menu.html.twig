@@ -1,0 +1,20 @@
+{# src/JCV/CoreBundle/Resources/views/menu.html.twig #}
+
+<style>
+.center {
+margin-left: auto;
+margin-right: auto;
+width: 70.5%;
+background-color: #f4f4f4;
+}
+</style>
+<div  class="navbar navbar-fixed-top center">
+    <div  class="navbar-inner">
+        {{ knp_menu_render('JCVCoreBundle:Builder:HomeMenu', {'currentClass': 'active', 'template': 'JCVCoreBundle:Menu:knp_menu.html.twig'}) }}
+        {{ knp_menu_render('JCVCoreBundle:Builder:UploadMenu', {'currentClass': 'active', 'template': 'JCVCoreBundle:Menu:knp_menu.html.twig'}) }}
+        {{ knp_menu_render('JCVCoreBundle:Builder:AdminMenu', {'currentClass': 'active', 'template': 'JCVCoreBundle:Menu:knp_menu.html.twig'}) }}
+        {{ knp_menu_render('JCVCoreBundle:Builder:LogoutMenu', {'currentClass': 'active', 'template': 'JCVCoreBundle:Menu:knp_menu.html.twig'}) }}
+
+    </div>
+</div>
+

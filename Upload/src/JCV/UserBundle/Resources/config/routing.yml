@@ -1,0 +1,29 @@
+jcv_user_home:
+    path:      /user/{page}
+    defaults:  { _controller: JCVUserBundle:User:index, page: 1 }
+    requirements:
+        page:   \d*
+
+jcv_user_view:
+    path:      /user/view/{id}
+    defaults:  { _controller: JCVUserBundle:User:view }
+    requirements:
+        id:   \d+
+
+jcv_user_add:
+    path:      /user/add
+    defaults:  { _controller: JCVUserBundle:User:add }
+
+jcv_user_edit:
+    path:      /user/edit/{id}
+    defaults:  { _controller: JCVUserBundle:User:edit }
+    requirements:
+        id: \d+
+
+jcv_user_delete:
+    path:      /user/delete/{id}
+    defaults:  { _controller: JCVUserBundle:User:delete }
+    requirements:
+        id: \d+
+
+

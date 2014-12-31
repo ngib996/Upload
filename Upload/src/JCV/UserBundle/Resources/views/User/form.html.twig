@@ -1,0 +1,113 @@
+{# src/JCV/UserBundle/Resources/views/User/form.html.twig #}
+{% if form is defined %}
+    {# form_theme form 'JCVUserBundle:Form:form_JCV_type.html.twig' #}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% endif %}
+
+<h3>Formulaire de user</h3>
+
+{# On laisse vide la vue pour l'instant, on la comblera plus tard
+   lorsqu'on saura afficher un formulaire. #}
+<div class="well">
+    {% if form is defined %}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+            {% if user is defined %}
+                <div class="form-group">
+                    <img src="{{ user.image.url }}" alt="{{ user.image.alt }}">
+                    <strong>{{ user.firstName }} {{ user.lastName }}</strong>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form_label(form.userName, "Username", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.userName) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.userName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.namePrefix, "Titre", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.namePrefix) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.namePrefix, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.firstName, "Prénom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.firstName) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.lastName, "Nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.lastName) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.gender, "Sexe", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.gender) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.gender, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.lifePartner, "Partenaire", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.lifePartner) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.lifePartner, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.myFriends, "Friends", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.myFriends) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.myFriends, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {% if form.userInfo is defined %}
+                <div class="form-group">
+                    {{ form_label(form.userInfo.signUpDate, "Date d'entrée", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                    {{ form_errors(form.userInfo.signUpDate) }}
+                        <div class="col-sm-4">
+                            {{ form_widget(form.userInfo.signUpDate) }}
+                        </div>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form_label(form.image.file, "Photo", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.image.file) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.image.file, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.phone, "Téléphone", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.phone) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, "Email", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.email) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.roles, "Roles", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.roles) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+             {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+    {% endif %}
+</div>
+

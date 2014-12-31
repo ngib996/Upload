@@ -1,0 +1,46 @@
+upload:
+    path:     /{page}
+    defaults: { _controller: "JCVUploadBundle:Upload:index", page: 1 }
+    requirements:
+        page:   \d*
+
+upload_show:
+    path:     /{id}/show
+    defaults: { _controller: "JCVUploadBundle:Upload:show" }
+    requirements:
+        id:   \d*
+
+upload_new:
+    path:     /new
+    defaults: { _controller: "JCVUploadBundle:Upload:new" }
+
+upload_create:
+    path:     /create
+    defaults: { _controller: "JCVUploadBundle:Upload:create" }
+    requirements: { _method: post }
+
+upload_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "JCVUploadBundle:Upload:edit" }
+    requirements:
+        id:   \d*
+
+upload_persist:
+    path:     /{id}/persist
+    defaults: { _controller: "JCVUploadBundle:Upload:persist" }
+    requirements:
+        id:   \d*
+
+upload_update:
+    path:     /{id}/update
+    defaults: { _controller: "JCVUploadBundle:Upload:update" }
+    requirements: { _method: post|put }
+    requirements:
+            id:   \d*
+
+upload_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "JCVUploadBundle:Upload:delete" }
+#    requirements: { _method: post|delete }
+    requirements:
+            id:   \d*

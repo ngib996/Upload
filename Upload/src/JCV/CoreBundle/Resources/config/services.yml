@@ -1,0 +1,7 @@
+services:
+    jcv.core.menu.voter.request:
+        class: JCV\CoreBundle\Menu\RequestVoter
+        arguments:
+            - @service_container
+        tags:
+            - { name: knp_menu.voter }

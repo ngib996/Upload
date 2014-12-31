@@ -1,0 +1,74 @@
+{# src/JCV/CoreBundle/Resources/views/base.html.twig #}
+
+<!DJCVTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}JCV Upload{% endblock %}</title>
+
+        {% stylesheets 'css/bootstrap.min.css' filter='cssrewrite'%}
+            <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/bootstrap-theme.min.css' filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/jquery-ui.min.css' filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/jquery-ui.structure.min.css' filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/jquery-ui.theme.min.css' filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/font-awesome.css' filter='cssrewrite'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        {% stylesheets 'css/tuto.css' filter='cssrewrite'%}
+            <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+        <script>
+            global = {
+                locale   : '{{ app.request.locale }}'
+        }
+        </script>
+        {% javascripts 'js/jquery-1.11.1.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts 'js/bootstrap.min.js' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts 'js/jquery-ui.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts 'js/DatePickerInit.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts 'js/jquery.blockUI.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </head>
+    <body>
+
+
+        <div class="container">
+            <div id="header" class="jumbotron">
+
+                <h2 align="center">Jean-Christophe Upload Site</h2>
+            </div>
+
+               <div id="content" class="col-lg-12">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <hr>
+
+            <footer>
+                <p align="center">Jean-Christophe Verhulst © {{ 'now'|date('Y') }}</p>
+            </footer>
+        </div>
+    </body>
+</html>

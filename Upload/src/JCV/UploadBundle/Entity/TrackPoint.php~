@@ -1,0 +1,188 @@
+<?php
+
+namespace JCV\UploadBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * TrackPoint
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="JCV\UploadBundle\Entity\TrackPointRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class TrackPoint
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="start_time", type="string", length=255, nullable=false)
+     */
+    private $startTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="latitude", type="float", nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitude", type="float", nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altitude", type="float", nullable=true)
+     */
+    private $altitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="distance", type="float", nullable=true)
+     */
+    private $distance;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hr", type="integer", nullable=true)
+     */
+    private $hr;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="speed", type="float", nullable=true)
+     */
+    private $speed;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="JCV\UploadBundle\Entity\Track", inversedBy="trackpoints")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $track;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue() {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Lap
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Lap
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set lap
+     *
+     * @param \JCV\UploadBundle\Entity\Lap $lap
+     * @return Track
+     */
+    public function setLap(\JCV\UploadBundle\Entity\Lap $lap)
+    {
+        $this->lap = $lap;
+
+        return $this;
+    }
+
+    /**
+     * Get lap
+     *
+     * @return \JCV\UploadBundle\Entity\Lap 
+     */
+    public function getLap()
+    {
+        return $this->lap;
+    }
+}

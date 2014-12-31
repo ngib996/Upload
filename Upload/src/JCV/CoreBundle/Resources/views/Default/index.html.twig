@@ -1,0 +1,19 @@
+{# src/JCV/CoreBundle/Resources/views/Default/index.html.twig #}
+
+{% extends "JCVCoreBundle::layout.html.twig" %}
+
+{% block title %} {{ parent() }} - accueil{% endblock %}
+
+{% block jcvcore_body %}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <br/>
+        <div class="flash-notice">
+
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+ {% endblock %}
+
+

@@ -1,0 +1,105 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/index.html.twig #}
+
+{% extends "JCVUploadBundle::layout.html.twig" %}
+
+{% block jcvupload_body -%}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <br/>
+        <div class="flash-notice">
+
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <table class="table table-bordered table-striped">
+        <caption>
+            <h2>Liste des uploads</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>Cid</th>
+                <th>Id</th>
+                <th>Upload file Name</th>
+                <th>Original file Name</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Loaded</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+
+            <tr>
+                <td>{{ form_widget(form.ids[entity.id]) }} </td>
+                <td><a href="{{ path('upload_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.uploadFile }}</td>
+                <td><a href="/uploads/xml/{{ entity.uploadFile }}" download>{{ entity.originalFile }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td> {% if entity.loaded  %}
+                    <i class="fa fa-check fa-fw"></i>
+                    {% else %}
+                    <i class="fa fa-close fa-fw"></i>
+                    {% endif %}
+                </td>
+                <td>
+                        <a href="{{ path('upload_show', { 'id': entity.id }) }}" title="show"><i class="fa fa-list fa-fw"></i></a>
+                        <a href="{{ path('upload_delete', { 'id': entity.id }) }}" title="delete"><i class="fa fa-cut fa-fw"></i></a>
+                        <a href="{{ path('upload_persist', { 'id': entity.id }) }}" title="persist" ><i class="fa fa-arrow-up fa-fw persist"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if nbPages > 1 %}
+        {%  set prev = page > 1 ? page-1 : 1 %}
+        {%  set next = page == nbPages ? nbPages : page +1 %}
+
+        <div class="pagination">
+            <a href="{{ path('upload', {'page': 1}) }}" title="first">
+                <i class="fa fa-angle-double-left fa-fw"></i>
+            </a>
+
+            <a href="{{ path('upload', {'page': prev}) }}" title="previous">
+                <i class="fa fa-angle-left fa-fw"></i>
+            </a>
+            {% for p in 1..nbPages %}
+                {% if p == page %}
+                    {{ p }}
+                {% else %}
+                    <a href="{{ path('upload', {'page': p}) }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+
+            <a href="{{ path('upload', {'page': next }) }}" title="next">
+                <i class="fa fa-angle-right fa-fw"></i>
+            </a>
+
+            <a href="{{ path('upload', {'page': nbPages }) }}" title="last">
+                <i class="fa fa-angle-double-right fa-fw"></i>
+            </a>
+        </div>
+    {% endif %}
+
+    {% block javascripts %}
+       <script type="text/javascript">
+           $(document).ready(function() {
+               $("i.persist").click(function() {
+                   $.blockUI({
+                       message: '<h1>Processing</h1>',
+                       css: { border: '3px solid #a00' }
+                   });
+               });
+
+           });
+       </script>
+    {% endblock %}
+
+
+    {% endblock %}
+
+
+
+

@@ -1,0 +1,7 @@
+JCV\UploadBundle\Entity\Upload:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: originalFile
+    properties:
+        uploadFile:
+            - File:
+                maxSize: 1024k

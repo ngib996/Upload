@@ -1,0 +1,51 @@
+{# src/JCV/UserBundle/Resources/views/User/index.html.twig #}
+
+{% extends "JCVUserBundle::layout.html.twig" %}
+
+{% block title %} {{ parent() }} - List{% endblock %}
+
+{% block jcvuser_body %}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <br/>
+        <div class="flash-notice">
+
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <table class="table table-bordered table-striped">
+        <caption>
+            <h2>Liste des utilisateurs</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Title</th>
+                <th>Date created</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in listUsers %}
+                <tr>
+                    <td><a href="{{ path('jcv_user_view', {'id': user.id}) }}">
+                            {{ user.firstName }}
+                        </a></td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.namePrefix }}</td>
+                    <td>{{ user.created|date('d/m/Y') }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="8">Pas de users</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

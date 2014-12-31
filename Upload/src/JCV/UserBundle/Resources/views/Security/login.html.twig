@@ -1,0 +1,58 @@
+{# src/JCV/UserBundle/Resources/views/Security/login.html.twig #}
+
+{% extends "JCVCoreBundle::layout.html.twig" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <style>
+
+        input
+        {
+            display:block;
+            margin:0px auto;
+        }
+        .clear
+        {
+            clear: both;
+        }
+    </style>
+
+    <h2>Login</h2>
+
+    {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+    {% if error %}
+        <div class="alert alert-danger col-sm-6">{{ error.message }}</div>
+        <br/>
+    {% endif %}
+
+    {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+    <div class="center clear">
+    <div class="well col-sm-6">
+        <form action="{{ path('fos_user_security_check') }}" method="post">
+        <label for="username" class="col-sm-3 control-label">Login</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        <br/>
+        <label for="password" class="col-sm-3 control-label">Mot de passe</label>
+        <input type="password" id="password" name="_password" />
+        <br />
+        <input type="submit" value="Connexion" />
+    </form>
+    </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
