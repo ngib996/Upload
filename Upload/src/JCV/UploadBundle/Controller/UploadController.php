@@ -9,6 +9,7 @@ use JCV\UploadBundle\Entity\Upload;
 use JCV\UploadBundle\Form\UploadType;
 use JCV\UploadBundle\Form\Type\UploadEditType;
 use JCV\UploadBundle\Form\Type\UploadSelectByIdType;
+use SaadTazi\GChartBundle\DataTable;
 
 /**
  * Upload controller.
@@ -28,11 +29,23 @@ class UploadController extends Controller
         }
         $nbPerPage = $this->container->getParameter('nbPerPage');
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('JCVUploadBundle:Upload')->getUploads($page, $nbPerPage);
+        $nbPages = ceil(count($entities) / $nbPerPage);
+
+        $dql   = "SELECT u FROM JCVUploadBundle:Upload u";
+        $query = $em->createQuery($dql);
+        $paginator  = $this->get('knp_paginator');
+
+        $entities = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', $page)/*page number*/,
+            $nbPerPage
+        );
+
+
         $form = $this->createForm(new UploadSelectByIdType())->createView();
 
-        $nbPages = ceil(count($entities) / $nbPerPage);
+
         if ($page > $nbPages) {
             throw $this->createNotFoundException("La page " . $page . " n'existe pas.");
         }
@@ -113,16 +126,52 @@ class UploadController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('JCVUploadBundle:Upload')->find($id);
+        $activities = $entity->getActivities();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Upload entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $dataTables = $this->buildDataTables($entity);
 
+
+        $deleteForm = $this->createDeleteForm($id);
         return $this->render('JCVUploadBundle:Upload:show.html.twig', array(
             'entity'      => $entity,
+            'activities'  => $activities,
             'delete_form' => $deleteForm->createView(),
+            'dataTable' => $dataTables[0]->toArray(),
+            'dataTable2' => $dataTables[1]->toArray(),
+        ));
+    }
+
+    /**
+     * Finds and displays a Hr detailed activity.
+     *
+     */
+    public function showHrDetailsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('JCVUploadBundle:Upload')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Upload entity.');
+        }
+
+        $hrDetails = $em->getRepository('JCVUploadBundle:Upload')->getHrDetails($entity);
+
+        $dataTable = new DataTable\DataTable();
+        $dataTable->addColumn('id1', 'time', 'number');
+        $dataTable->addColumnObject(new DataTable\DataColumn('id2', 'HR', 'number'));
+
+        foreach ($hrDetails as $key => $value) {
+            $dataTable->addRow(array($key, $value[0]));
+        }
+
+        return $this->render('JCVUploadBundle:Upload:showHrDetails.html.twig', array(
+            'entity'      => $entity,
+            'dataTable' => $dataTable->toArray(),
         ));
     }
 
@@ -132,6 +181,7 @@ class UploadController extends Controller
      */
     public function persistAction($id,Request $request)
     {
+        $from=$request->query->get('from');
         $em = $this->getDoctrine()->getManager();
         $repository=$em->getRepository('JCVUploadBundle:Upload');
 
@@ -157,7 +207,12 @@ class UploadController extends Controller
 
         $request->getSession()->getFlashBag()->add('notice', 'xml data loaded to database.');
 
-        return $this->redirect($this->generateUrl('upload'));
+        if ($from == 'show') {
+            return $this->redirect($this->generateUrl('upload_show', array('id' => $id)));
+        } else {
+            return $this->redirect($this->generateUrl('upload'));
+        }
+
     }
 
      /**
@@ -220,6 +275,9 @@ class UploadController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+
+//        var_dump($editForm);exit;
+
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -302,5 +360,30 @@ class UploadController extends Controller
             $em->persist($trackPoint);
         }
         $em->flush();
+    }
+
+    private function buildDataTables($entity) {
+        $em = $this->getDoctrine()->getManager();
+//      HR
+        $hrs = $em->getRepository('JCVUploadBundle:Upload')->getHr($entity);
+        $dataTable = new DataTable\DataTable();
+        $dataTable->addColumn('id1', 'label 1', 'number');
+        $dataTable->addColumnObject(new DataTable\DataColumn('id2', 'Avg HR', 'number'));
+        $dataTable->addColumnObject(new DataTable\DataColumn('id3', 'Max HR', 'number'));
+        foreach ($hrs as $key => $value) {
+            $dataTable->addRow(array($key, $value[0], $value[1]));
+        }
+
+//        Speed
+        $speeds = $em->getRepository('JCVUploadBundle:Upload')->getSpeed($entity);
+        $dataTable2 = new DataTable\DataTable();
+        $dataTable2->addColumn('id1', 'label 1', 'number');
+        $dataTable2->addColumnObject(new DataTable\DataColumn('id2', 'Avg Speed', 'number'));
+        $dataTable2->addColumnObject(new DataTable\DataColumn('id3', 'Max Speed', 'number'));
+        foreach ($speeds as $key => $value) {
+            $dataTable2->addRow(array($key, $value[0], $value[1]));
+        }
+
+        return array($dataTable,$dataTable2);
     }
 }

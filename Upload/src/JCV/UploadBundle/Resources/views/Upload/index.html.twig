@@ -18,13 +18,12 @@
         </caption>
         <thead>
             <tr>
-                <th>Cid</th>
-                <th>Id</th>
-                <th>Upload file Name</th>
-                <th>Original file Name</th>
-                <th>Created at</th>
-                <th>Updated at</th>
-                <th>Loaded</th>
+                {#<th>Cid</th>#}
+                <th>{{ knp_pagination_sortable(entities , 'Id', 'u.id') }}</th>
+                <th>{{ knp_pagination_sortable(entities , 'File Name', 'u.name') }}</th>
+                <th>{{ knp_pagination_sortable(entities , 'Created at', 'u.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(entities , 'Filename', 'u.originalFile') }}</th>
+                <th>{{ knp_pagination_sortable(entities , 'Loaded', 'u.loaded') }}</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,22 +31,23 @@
         {% for entity in entities %}
 
             <tr>
-                <td>{{ form_widget(form.ids[entity.id]) }} </td>
+                {#<td>{{ form_widget(form.ids[entity.id]) }} </td>#}
                 <td><a href="{{ path('upload_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.uploadFile }}</td>
                 <td><a href="/uploads/xml/{{ entity.uploadFile }}" download>{{ entity.originalFile }}</td>
+
+
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.name }}</td>
                 <td> {% if entity.loaded  %}
-                    <i class="fa fa-check fa-fw"></i>
+                        <i class="fa fa-check fa-fw"></i>
                     {% else %}
-                    <i class="fa fa-close fa-fw"></i>
+                        <i class="fa fa-close fa-fw"></i>
                     {% endif %}
                 </td>
                 <td>
                         <a href="{{ path('upload_show', { 'id': entity.id }) }}" title="show"><i class="fa fa-list fa-fw"></i></a>
                         <a href="{{ path('upload_delete', { 'id': entity.id }) }}" title="delete"><i class="fa fa-cut fa-fw"></i></a>
-                        <a href="{{ path('upload_persist', { 'id': entity.id }) }}" title="persist" ><i class="fa fa-arrow-up fa-fw persist"></i></a>
+                        <a href="{{ path('upload_persist', { 'id': entity.id,'from' : 'index' }) }}" title="persist" ><i class="fa fa-arrow-up fa-fw persist"></i></a>
                 </td>
             </tr>
         {% endfor %}

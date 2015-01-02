@@ -10,6 +10,12 @@ upload_show:
     requirements:
         id:   \d*
 
+upload_show_hr_details:
+    path:     /{id}/showHr
+    defaults: { _controller: "JCVUploadBundle:Upload:showHrDetails" }
+    requirements:
+        id:   \d*
+
 upload_new:
     path:     /new
     defaults: { _controller: "JCVUploadBundle:Upload:new" }

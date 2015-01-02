@@ -1,0 +1,49 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/showUploadsharts.html.twig #}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <hr/>
+            <h2>Heart Rate</h2>
+            <a href="{{ path('upload_show_hr_details', {'id': entity.id}) }}" title="Show details">
+            <div id="chart1">&nbsp;</div>
+            <script>
+                $(function() {
+                    {{ gchart_line_chart(dataTable, 'chart1', 400, 200, 'HR',{
+                                        'hAxis':{
+                                            'title': 'Time (min)',
+                                            'titleTextStyle': {
+                                                'color': '#FF0000'
+                                            }
+                                        }
+                                                                                }) }}
+                });
+            </script>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <hr/>
+            <h2>Speed</h2>
+            <div id="chart2">&nbsp;</div>
+            <script>
+                $(function() {
+                    {{ gchart_line_chart(dataTable2, 'chart2', 400, 200, 'Speed',{
+                                            'hAxis':{
+                                                'title': 'Speed',
+                                                'titleTextStyle': {
+                                                    'color': '#FF0000'
+                                                },
+                                            'explorer' : {
+                                                'axis': 'horizontal',
+                                                'actions': ['dragToZoom', 'rightClickToReset']}
+                                            }
+                                        }) }}
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<br/>
+
+
+

@@ -28,6 +28,13 @@ class Upload
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="upload_file", type="string", length=255, nullable=false)
      */
     private $uploadFile;
@@ -83,6 +90,7 @@ class Upload
 
     /**
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function preUpload()
     {
@@ -325,5 +333,28 @@ class Upload
     public function getLoaded()
     {
         return $this->loaded;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Upload
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

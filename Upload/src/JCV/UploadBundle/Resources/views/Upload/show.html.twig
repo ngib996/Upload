@@ -1,31 +1,13 @@
-{# src/JCV/UploadBundle/Resources/views/Upload/index.html.twig #}
+{# src/JCV/UploadBundle/Resources/views/Upload/show.html.twig #}
 
 {% extends "JCVUploadBundle::layout.html.twig" %}
 
 {% block jcvupload_body -%}
-    <h1>Upload</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Original File Name</th>
-                <td>{{ entity.originalFile }}</td>
-            </tr>
-            <tr>
-                <th>Created at</th>
-                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Updated at</th>
-                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <br/>
+{{ include("JCVUploadBundle:Upload:showUploadTable.html.twig") }}
+
+{{ include("JCVUploadBundle:Upload:showUploadSharts.html.twig") }}
+
     <p>
         <a href="{{ path('upload') }}" class="btn btn-default">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -40,6 +22,7 @@
             Supprimer l'upload
         </a>
     </p>
+
 {% endblock %}
 
 

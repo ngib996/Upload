@@ -30,7 +30,7 @@ class UploadSelectByIdType extends AbstractType
                 'property'      => 'id',
 //                'property_path' => '[id]', # in square brackets!
                 'multiple'      => true,
-                'label' => '',
+//                'label' => '',
                 'expanded'      => true
             ))
 //            ->add('loaded','entity',array(

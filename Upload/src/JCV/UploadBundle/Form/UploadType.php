@@ -15,8 +15,8 @@ class UploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file','file', array('label' => 'File to upload'))
-            ->add('createdAt','datetime', array('read_only' => true))
+            ->add('file','file', array('label' => 'File to upload','required' => false))
+            ->add('name')
         ;
     }
     

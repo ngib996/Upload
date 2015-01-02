@@ -22,8 +22,15 @@ class uploadFixtures extends AbstractFixture implements OrderedFixtureInterface,
 
     public function load(ObjectManager $em) {
 
-        $fileNames=array('activity_547751534.tcx','activity_556737528.tcx','activity_569541147.tcx','activity_573551151.tcx','activity_573551152.tcx','activity_test.tcx','activity_475387013.tcx');
-        foreach ($fileNames as $fileName) {
+        $fileNames=array('1h cool' =>'activity_547751534.tcx',
+            'reveil musculaire' => 'activity_556737528.tcx',
+            '4*1000m' => 'activity_569541147.tcx',
+            'Activité A' => 'activity_573551151.tcx',
+            'Activité B' =>'activity_573551152.tcx',
+            'Activité C' => 'activity_test.tcx',
+            'Activité D' =>'activity_475387013.tcx');
+
+        foreach ($fileNames as $key => $fileName) {
             $upload = new upload();
             copy($upload->getFixturesPath() . $fileName, $upload->getFixturesPath() . $fileName .'.copy');
             $file = new UploadedFile($upload->getFixturesPath() . $fileName .'.copy', $fileName, null, null, null, true);
@@ -31,6 +38,7 @@ class uploadFixtures extends AbstractFixture implements OrderedFixtureInterface,
             $upload->setOriginalFile($file);
             $upload->setFile($file);
             $upload->setLoaded(false);
+            $upload->setName($key);
             $em->persist($upload);
         }
 

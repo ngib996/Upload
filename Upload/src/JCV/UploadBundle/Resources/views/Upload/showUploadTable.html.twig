@@ -1,0 +1,42 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/showUploadTable.html.twig #}
+    <table class="table table-bordered table-striped">
+        <caption>
+            <h2>Upload {{ entity.name }}</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>File Name</th>
+                <th>Loaded</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            {#{% set  %}#}
+
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.originalFile }}</td>
+                <td> {% if entity.loaded  %}
+                        <i class="fa fa-check fa-fw"></i>
+                    {% else %}
+                        <i class="fa fa-close fa-fw"></i>
+                    {% endif %}
+                </td>
+                <td>{% if entity.loaded  %}
+                        {% for activity in entity.activities  %}
+                            {{   activity.startTime|date('Y-m-d H:i:s') }}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>{{ entity.name }}</td>
+                <td>
+                    <a href="{{ path('upload_persist', { 'id': entity.id,'from' : 'show' }) }}" title="persist" ><i class="fa fa-arrow-up fa-fw persist"></i></a>
+                    <a href="{{ path('upload_edit', { 'id': entity.id }) }}" title="edit"><i class="fa fa-edit fa-fw"></i></a
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>

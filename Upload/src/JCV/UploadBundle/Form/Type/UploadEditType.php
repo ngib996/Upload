@@ -24,7 +24,7 @@ class UploadEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $builder->remove('file');
+        $builder->remove('file');
     }
 
     /**

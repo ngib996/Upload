@@ -18,6 +18,78 @@ use JCV\UploadBundle\Entity\TrackPoint;
  */
 class UploadRepository extends EntityRepository
 {
+    public function getHr($entity) {
+        $activities = $entity->getActivities();
+        $hr = array();
+        foreach ($activities as $activity) {
+            $laps=$activity->getLaps();
+            $spentTime = 0;
+            foreach ($laps as $lap) {
+                $spentTime += ($lap->getSpentTime())/60;
+                $hr[$spentTime] = array($lap->getAvgHr(),$lap->getMaxHr());
+            }
+        }
+
+         return $hr;
+    }
+
+    public function getSpeed($entity) {
+        $activities = $entity->getActivities();
+        $speed = array();
+        foreach ($activities as $activity) {
+            $laps=$activity->getLaps();
+            $spentTime = 0;
+            foreach ($laps as $lap) {
+                if ($lap->getAvgSpeed() > 7 || $lap->getMaxSpeed() > 7 ) continue;
+                $spentTime += ($lap->getSpentTime())/60;
+                $speed[$spentTime] = array($lap->getAvgSpeed()*3.6,$lap->getMaxSpeed()*3.6);
+            }
+        }
+
+        return $speed;
+    }
+
+    public function getHrDetails($entity) {
+        $activities = $entity->getActivities();
+        $hrDetails = array();
+        $spentTime = 0;
+        foreach ($activities as $activity) {
+            $laps=$activity->getLaps();
+
+            foreach ($laps as $lap) {
+                $tracks=$lap->getTracks();
+                foreach ($tracks as $track) {
+                    $trackPoints = $track->getTrackPoints();
+                    $initStartTime = $trackPoints[0]->getStartTime();
+
+//                    foreach ($trackPoints as $trackPoint) {
+//                            $hrDetails[] = array($trackPoint->getStartTime()->format('Y-m-d H:i:s'),$trackPoint->getHr());
+//
+//
+//                    }
+
+                    foreach ($trackPoints as $key => $trackPoint) {
+                        if ($key == 0) {
+                            $hrDetails[$spentTime] = array($trackPoint->getHr());
+                            continue;
+                        } else {
+                            $startTime = $trackPoint->getStartTime();
+                            $spentTime += $startTime->diff($initStartTime)->format('%s');
+                            $initStartTime = $startTime;
+                            $hrDetails[$spentTime] = array($trackPoint->getHr());
+                        }
+                    }
+                }
+            }
+        }
+        foreach ($hrDetails as $key => $trackPoint) {
+            if ($key < 40) unset($hrDetails[$key]);
+        }
+//        var_dump($hrDetails);exit;
+
+        return $hrDetails;
+
+    }
     public function getUploads($page = 1, $nbPerPage = 20) {
         $qb = $this->createQueryBuilder('u')
             ->addOrderBy('u.updatedAt', 'DESC');

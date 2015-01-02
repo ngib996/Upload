@@ -1,0 +1,45 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/showHrDetails.html.twig #}
+
+{% extends "JCVUploadBundle::layout.html.twig" %}
+
+{% block jcvupload_body -%}
+    <h1>Hr details</h1>
+
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-6">
+                    <hr/>
+                    <h2>Heart Rate</h2>
+                    <div id="chart1">&nbsp;</div>
+                    <script>
+                        $(function() {
+                            {{ gchart_line_chart(dataTable, 'chart1', 1200, 600, 'HR',{
+                                                'hAxis':{
+                                                    'title': 'Time (sec)',
+                                                    'titleTextStyle': {
+                                                        'color': '#FF0000'
+                                                    }
+                                                }
+                                                                                        }
+                                                                                        ) }}
+                        });
+                    </script>
+                </div>
+            <br/>
+        </div>
+
+        <p>
+            <a href="{{ path('upload_show', {'id': entity.id}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-edit"></i>
+                Back to main charts
+            </a>
+        </p>
+
+    </div><!-- /.container -->
+
+
+
+
+{% endblock %}
+
+
