@@ -1,0 +1,40 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/showLapTable.html.twig #}
+    <table class="table table-bordered table-striped">
+        <caption>
+            <h3>Laps</h3>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Started at</th>
+                <th>Duration</th>
+                <th>Distance</th>
+                <th>Avg HR</th>
+                <th>Max HR</th>
+                <th>Avg speed</th>
+                <th>Max speed</th>
+                <th>Calorie</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lap in laps[0] %}
+            <tr>
+                <td>{{ lap.id }}</td>
+                <td>{{ lap.startTime|date('Y-m-d H:i:s') }}</td>
+                <td>{{ lap.spentTime }}</td>
+                <td>{{ lap.distance }}</td>
+                <td>{{ lap.avgHr }}</td>
+                <td>{{ lap.maxHr }}</td>
+                <td>{{ lap.avgSpeed }}</td>
+                <td>{{ lap.maxSpeed }}</td>
+                <td>{{ lap.calorie }}</td>
+                <td>
+                    {#<a href="{{ path('upload_lap_edit', { 'id': lap.id }) }}" title="edit"><i class="fa fa-edit fa-fw"></i></a#}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br/>

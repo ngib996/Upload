@@ -1,3 +1,7 @@
+jcv_ajax:
+    resource: "@JCVAjaxBundle/Resources/config/routing.yml"
+    prefix:   /ajax
+
 jcv_upload:
     resource: "@JCVUploadBundle/Resources/config/routing/upload.yml"
     prefix:   /upload

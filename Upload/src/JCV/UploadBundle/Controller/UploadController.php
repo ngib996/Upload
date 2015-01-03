@@ -128,6 +128,10 @@ class UploadController extends Controller
 
         $entity = $em->getRepository('JCVUploadBundle:Upload')->find($id);
         $activities = $entity->getActivities();
+        $laps = array();
+        foreach ($activities as $activity) {
+            $laps[] = $activity->getLaps();
+        }
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Upload entity.');
@@ -140,6 +144,7 @@ class UploadController extends Controller
         return $this->render('JCVUploadBundle:Upload:show.html.twig', array(
             'entity'      => $entity,
             'activities'  => $activities,
+            'laps' => $laps,
             'delete_form' => $deleteForm->createView(),
             'dataTable' => $dataTables[0]->toArray(),
             'dataTable2' => $dataTables[1]->toArray(),

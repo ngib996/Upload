@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new JCV\UploadBundle\JCVUploadBundle(),
             new SaadTazi\GChartBundle\SaadTaziGChartBundle(),
+            new JCV\AjaxBundle\JCVAjaxBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
