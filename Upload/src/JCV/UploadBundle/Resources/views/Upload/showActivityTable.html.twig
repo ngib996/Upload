@@ -1,0 +1,31 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/showActivityTable.html.twig #}
+    <table class="table table-bordered table-striped">
+        <caption>
+            <h3>Activities</h3>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>sport</th>
+                <th>Start Date</th>
+                 <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activity in activities %}
+            <tr>
+                <td>{{ activity.id }}</td>
+                <td>{{ activity.sport }}</td>
+                 <td>{% if entity.loaded  %}
+                            {{   activity.startTime|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('upload_activity_edit', { 'id': activity.id }) }}" title="edit"><i class="fa fa-edit fa-fw"></i></a
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br/>

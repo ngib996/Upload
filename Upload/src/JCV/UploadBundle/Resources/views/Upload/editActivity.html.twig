@@ -1,0 +1,19 @@
+{# src/JCV/UploadBundle/Resources/views/Upload/editActivity.html.twig #}
+
+{% extends "JCVUploadBundle::layout.html.twig" %}
+
+{% block jcvupload_body -%}
+    <h1>Activity edit</h1>
+
+    {#{% form_theme activity_form 'JCVUploadBundle:Form:form_JCV_type.html.twig' %}#}
+
+    {{ form(activity_form) }}
+
+    <a href="{{ path('upload_show', {'id': activity.upload.id}) }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Back to the view
+    </a>
+
+
+{% endblock %}
+

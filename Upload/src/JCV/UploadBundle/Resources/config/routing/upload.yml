@@ -31,6 +31,12 @@ upload_edit:
     requirements:
         id:   \d*
 
+upload_activity_edit:
+    path:     /{id}/editActivity
+    defaults: { _controller: "JCVUploadBundle:Upload:editActivity" }
+    requirements:
+        id:   \d*
+
 upload_persist:
     path:     /{id}/persist
     defaults: { _controller: "JCVUploadBundle:Upload:persist" }

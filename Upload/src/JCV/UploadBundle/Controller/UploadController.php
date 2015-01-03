@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JCV\UploadBundle\Entity\Upload;
 use JCV\UploadBundle\Form\UploadType;
 use JCV\UploadBundle\Form\Type\UploadEditType;
+use JCV\UploadBundle\Form\Type\UploadActivityType;
 use JCV\UploadBundle\Form\Type\UploadSelectByIdType;
 use SaadTazi\GChartBundle\DataTable;
 
@@ -213,6 +214,37 @@ class UploadController extends Controller
             return $this->redirect($this->generateUrl('upload'));
         }
 
+    }
+
+    /**
+     * Displays a form to edit an existing Activity entity.
+     *
+     */
+    public function editActivityAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $activity = $em->getRepository('JCVUploadBundle:Activity')->find($id);
+
+        if (!$activity) {
+            throw $this->createNotFoundException('Unable to find Activity entity.');
+        }
+
+        $activity_form = $this->createForm(new uploadActivityType($activity), $activity);
+
+        $activity_form->handleRequest($request);
+
+        if ($activity_form->isValid()) {
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Successfully updated activity.');
+
+            // Puis on redirige vers la page de visualisation de cettte annonce
+            return $this->redirect($this->generateUrl('upload_show', array('id' => $activity->getUpload()->getId())));
+        }
+
+        return $this->render('JCVUploadBundle:Upload:editActivity.html.twig', array('activity' => $activity, 'activity_form' => $activity_form->createView()));
     }
 
      /**

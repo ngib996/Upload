@@ -7,9 +7,9 @@
 
     {{ form(edit_form) }}
 
-    <a href="{{ path('upload') }}" class="btn btn-default">
+    <a href="{{ path('upload_show', {'id': entity.id}) }}" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-left"></span>
-        Back to the list
+        Back to the view
     </a>
     <a href="{{ path('upload_delete', {'id': entity.id}) }}" class="btn btn-danger">
         <i class="glyphicon glyphicon-trash"></i>

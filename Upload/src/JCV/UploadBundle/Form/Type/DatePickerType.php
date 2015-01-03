@@ -1,8 +1,8 @@
 <?php
 
-// src/JCV/UserBundle/Form/Type/DataPickerType.php
+// src/JCV/UploadBundle/Form/Type/DataPickerType.php
 
-namespace JCV\UserBundle\Form\Type;
+namespace JCV\UploadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

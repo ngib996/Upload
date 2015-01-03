@@ -1,7 +1,13 @@
 services:
-#    jcv_upload.example:
-#        class: JCV\UploadBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    form.type.datePicker:
+        class: JCV\UploadBundle\Form\Type\DatePickerType
+        tags:
+            - { name: form.type, alias: datePicker }
+    form.type.dateTimePicker:
+            class: JCV\UploadBundle\Form\Type\DateTimePickerType
+            tags:
+                - { name: form.type, alias: dateTimePicker }
+
 
 
 
