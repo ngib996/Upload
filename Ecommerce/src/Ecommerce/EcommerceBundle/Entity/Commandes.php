@@ -165,12 +165,12 @@ class Commandes
     }
 
     /**
-     * Get utilisateur
+     * Get user
      *
      * @return \Users\UsersBundle\Entity\Users 
      */
-    public function getUtilisateur()
+    public function getUser()
     {
-        return $this->utilisateur;
+        return $this->user;
     }
 }

@@ -6,3 +6,13 @@ body {
 .nav >li > a {
     padding: 2px
 }
+
+img {
+    max-width: 80px;
+    max-height: 70px;
+}
+
+div.thumbnail {
+    max-width: 180px;
+    max-height: 225px;
+}

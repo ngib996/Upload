@@ -6,20 +6,35 @@
 
             <div class="col-lg-3">
                 {% include '::modulesUsed/navigation.html.twig' %}
+                {#{% include 'UsersBundle:Default:modulesUsed/users.html.twig' %}#}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% include 'UsersBundle:Default:modulesUsed/usersConnecte.html.twig' %}
+                {% else %}
+                    {% include 'UsersBundle:Default:modulesUsed/users.html.twig' %}
+                {% endif %}
+                {% render(controller('EcommerceBundle:Panier:menu')) %}
             </div>
 
             <div class="col-lg-9">
 
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+
                 <ul class="thumbnails">
-                    {% for i in 0..10 %}
+                    {% for produit in produits %}
                         <li class="col-lg-3">
                             <div class="thumbnail">
-                                <img src="{{ asset('img/plate-thai-food_small.jpg') }}" alt="Ecommerce" width="300" height="300">
+                                <img src="{{ produit.image.path }}" alt="Ecommerce" width="300" height="300">
                                 <div class="caption">
-                                    <h4>Thumbnail label</h4>
-                                    <p>10,00 €</p>
-                                    <a class="btn btn-primary" href="{{ path('presentation') }}">Plus d'infos</a>
-                                    <a class="btn btn-success" href="{{ path('panier') }}">Ajouter au panier</a>
+                                    <h4>{{ produit.nom }}</h4>
+                                    <p>{{ produit.prix|tva(produit.tva.multiplicate) }}</p>
+                                    <a class="btn btn-primary" href="{{ path('presentation', { 'id' : produit.id }) }}">Plus d'infos</a>
+                                    {#{% if panier[produit.id] is not defined %}#}
+                                        <a class="btn btn-success" href="{{ path('ajouter', { 'id' : produit.id }) }}">Ajouter au panier</a>
+                                    {#{% endif %}#}
                                 </div>
                             </div>
                         </li>

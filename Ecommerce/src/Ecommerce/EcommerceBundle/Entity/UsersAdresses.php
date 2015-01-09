@@ -2,7 +2,7 @@
 namespace Ecommerce\EcommerceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * UtilisateursAdresses
+ * UsersAdresses
  *
  * @ORM\Table("usersadresses")
  * @ORM\Entity(repositoryClass="Ecommerce\EcommerceBundle\Entity\usersadressesRepository")
@@ -68,7 +68,7 @@ class UsersAdresses
     /**
      * @var string
      *
-     * @ORM\Column(name="complement", type="string", length=255)
+     * @ORM\Column(name="complement", type="string", length=255,nullable=true)
      */
     private $complement;
 

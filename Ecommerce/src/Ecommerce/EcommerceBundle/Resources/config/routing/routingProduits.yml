@@ -1,0 +1,15 @@
+produits:
+    pattern:  /
+    defaults: { _controller: EcommerceBundle:Produits:produits }
+
+presentation:
+    pattern:  /produit/{id}
+    defaults: { _controller: EcommerceBundle:Produits:presentation }
+
+categoryProduits:
+    pattern:  /categorie/{category}
+    defaults: { _controller: EcommerceBundle:Produits:categoryProduits }
+
+rechercheProduitsTraitement:
+    pattern:  /recherche
+    defaults: { _controller: EcommerceBundle:Produits:rechercheTraitement }
